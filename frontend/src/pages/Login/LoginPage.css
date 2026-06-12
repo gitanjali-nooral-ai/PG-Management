@@ -1,0 +1,570 @@
+/* ===============================================
+   PG MANAGEMENT SYSTEM - LOGIN PAGE CSS
+   Simplified Professional Design
+   =============================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Header Section */
+.login-card-header {
+  text-align: center;
+  margin-bottom: 32px;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 20px;
+}
+
+.pg-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+}
+
+.pg-logo h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #667eea;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  margin: 8px 0 0 0;
+  color: #8896a8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Login Header */
+.login-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.login-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #102a43;
+  font-weight: 700;
+}
+
+.toggle-button {
+  border: none;
+  background: transparent;
+  color: #667eea;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.toggle-button:hover:not(:disabled) {
+  color: #764ba2;
+  background-color: rgba(102, 126, 234, 0.1);
+}
+
+.toggle-button:disabled {
+  color: #8896a8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Form Styles */
+.login-form {
+  display: grid;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-form label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334e68;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d9e2ec;
+  font-size: 1rem;
+  color: #102a43;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  font-family: inherit;
+}
+
+.login-form input::placeholder {
+  color: #b0c4ff;
+}
+
+.login-form input:hover:not(:disabled) {
+  border-color: #b8d4e8;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+}
+
+.login-form input:disabled {
+  background-color: #f5f7fa;
+  color: #8896a8;
+  cursor: not-allowed;
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: #8896a8;
+  margin-top: 4px;
+}
+
+/* Password Input */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 44px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 6px;
+  transition: opacity 0.2s ease;
+  color: #334e68;
+}
+
+.password-toggle:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.password-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.checkbox-group label {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.forgot-password-link {
+  border: none;
+  background: transparent;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+.forgot-password-link:hover:not(:disabled) {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.forgot-password-link:disabled {
+  color: #8896a8;
+  cursor: not-allowed;
+}
+
+/* Messages */
+.error-message {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #ffebee;
+  color: #d32f2f;
+  font-size: 0.95rem;
+  border-left: 4px solid #d32f2f;
+  animation: slideIn 0.3s ease-out;
+}
+
+.success-message {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 0.95rem;
+  border-left: 4px solid #2e7d32;
+  animation: slideIn 0.3s ease-out;
+}
+
+.field-error {
+  font-size: 0.85rem;
+  color: #d32f2f;
+  margin-top: 4px;
+}
+
+/* Buttons */
+.primary-button {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.primary-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(102, 126, 234, 0.4);
+}
+
+.primary-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.primary-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  width: 100%;
+  background: #f8f9fa;
+  color: #334e68;
+  border: 1px solid #d9e2ec;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background: #f0f4ff;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.button-group .primary-button {
+  margin-top: 0;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #667eea;
+  font-weight: 700;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #8896a8;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover:not(:disabled) {
+  color: #334e68;
+}
+
+.modal-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.modal-description {
+  color: #8896a8;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.forgot-form {
+  display: grid;
+  gap: 16px;
+}
+
+/* OTP Verification */
+.verification-container {
+  text-align: center;
+}
+
+.verification-title {
+  margin: 0 0 16px 0;
+  font-size: 1.3rem;
+  color: #667eea;
+  font-weight: 700;
+}
+
+.verification-text {
+  color: #8896a8;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.otp-input {
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.resend-link {
+  background: transparent;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 12px;
+  transition: color 0.2s ease;
+  width: 100%;
+}
+
+.resend-link:hover:not(:disabled) {
+  color: #764ba2;
+}
+
+.resend-link:disabled {
+  color: #8896a8;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 28px;
+  }
+
+  .login-card-header {
+    margin-bottom: 24px;
+  }
+
+  .pg-logo h1 {
+    font-size: 1.5rem;
+  }
+
+  .login-header h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 12px;
+  }
+
+  .login-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .logo-icon {
+    font-size: 2rem;
+  }
+
+  .pg-logo h1 {
+    font-size: 1.4rem;
+  }
+
+  .tagline {
+    font-size: 0.8rem;
+  }
+
+  .login-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .toggle-button {
+    align-self: flex-end;
+  }
+
+  .login-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .login-form {
+    gap: 16px;
+  }
+
+  .checkbox-group {
+    flex-wrap: wrap;
+  }
+
+  .forgot-password-link {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .modal-content {
+    padding: 24px;
+    margin: 20px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+}
