@@ -1,0 +1,2 @@
+FastAPI
+sqlite3
