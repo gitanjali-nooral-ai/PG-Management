@@ -1,2 +1,3 @@
 FastAPI
 sqlite3
+pydantic
