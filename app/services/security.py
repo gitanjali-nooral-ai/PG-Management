@@ -8,7 +8,6 @@ pwd_context = CryptContext(
 
 
 def hash_password(password: str):
-    # SAFE LIMIT HANDLING
     if len(password) > 72:
         password = password[:72]
     return pwd_context.hash(password)

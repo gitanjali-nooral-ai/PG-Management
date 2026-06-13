@@ -1,4 +1,3 @@
-from sqlalchemy import func
 from app.models.payment import Payment
 
 def upload_payment(db, request):
