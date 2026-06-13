@@ -1,0 +1,107 @@
+.bill-page {
+    padding: 25px;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.generate-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.stat-card span {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.search-box {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.bill-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bill-table th,
+.bill-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.status.paid {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.pending {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.status.overdue {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.view-btn,
+.edit-btn,
+.download-btn {
+    border: none;
+    padding: 8px 10px;
+    margin-right: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.view-btn {
+    background: #dbeafe;
+}
+
+.edit-btn {
+    background: #fef3c7;
+}
+
+.download-btn {
+    background: #dcfce7;
+}
