@@ -16,3 +16,17 @@ def upload_pg(db, request):
         "message": "Uploaded successfully",
         "pg_id": pg.id
     }
+
+def get_pg_list(db):
+
+    pgs = db.query(PG).all()
+
+    return [
+        {
+            "id":pg.id,
+            "name": pg.name,
+            "address": pg.address,
+            "total_rooms": pg.total_rooms
+        }
+        for pg in pgs
+    ]

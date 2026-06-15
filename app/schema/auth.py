@@ -28,3 +28,7 @@ class DeleteAdminRequest(BaseModel):
     username: str
     password : str
     confirm: str   # must be "DELETE"
+
+class SMTPConfigRequest(BaseModel):
+    sender_email: str
+    app_password: str

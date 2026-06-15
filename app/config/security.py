@@ -1,3 +1,18 @@
+from cryptography.fernet import Fernet
+from app.config.email import ENCRYPTION_KEY
+
+cipher = Fernet(ENCRYPTION_KEY.encode())
+
+
+def encrypt(text: str) -> str:
+    return cipher.encrypt(text.encode()).decode()
+
+
+def decrypt(text: str) -> str:
+    return cipher.decrypt(text.encode()).decode()
+
+## for admin password security
+
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(

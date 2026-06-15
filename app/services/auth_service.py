@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 from app.models.admin import Admin
-from app.services.security import (
+from app.config.security import (
     hash_password,
     verify_password,
     verify_answer

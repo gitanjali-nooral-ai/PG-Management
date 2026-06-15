@@ -14,3 +14,6 @@ class Admin(Base):
 
     security_question = Column(String(255), nullable=False)
     security_answer_hash = Column(String(255), nullable=False)
+
+    smtp_sender_email = Column(String(100), nullable=True)
+    smtp_app_password = Column(String(500), nullable=True)
