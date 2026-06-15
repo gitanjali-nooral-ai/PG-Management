@@ -13,5 +13,4 @@ class Admin(Base):
     password_hash = Column(String(255), nullable=False)
 
     security_question = Column(String(255), nullable=False)
-
     security_answer_hash = Column(String(255), nullable=False)

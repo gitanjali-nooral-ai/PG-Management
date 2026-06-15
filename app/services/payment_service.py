@@ -17,7 +17,7 @@ def add_payment(db, request):
     payment = Payment(
         resident_id=request.resident_id,
         rent_id=request.rent_id,
-        payment=request.payment,
+        payment=request.amount_paid,
         pay_date=request.pay_date
     )
 
@@ -43,7 +43,7 @@ def get_payment_status(db, rent_id):
         }
 
     total_paid = db.query(
-        func.sum(Payment.payment)
+        func.sum(Payment.amount_paid)
     ).filter(
         Payment.rent_id == rent_id
     ).scalar() or 0
@@ -80,7 +80,7 @@ def calculate_due_rent(db, resident_id):
     for rent in rents:
 
         paid_amount = db.query(
-            func.sum(Payment.payment)
+            func.sum(Payment.amount_paid)
         ).filter(
             Payment.rent_id == rent.id
         ).scalar() or 0
@@ -115,7 +115,7 @@ def get_payment_history(db, resident_id):
         {
             "payment_id": payment.id,
             "rent_id": payment.rent_id,
-            "amount_paid": payment.payment,
+            "amount_paid": payment.amount_paid,
             "payment_date": payment.pay_date
         }
         for payment in payments

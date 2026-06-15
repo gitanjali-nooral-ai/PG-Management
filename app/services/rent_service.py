@@ -45,7 +45,7 @@ def get_rent_history(db, resident_id):
     for rent in rents:
 
         paid_amount = db.query(
-            func.sum(Payment.payment)
+            func.sum(Payment.amount_paid)
         ).filter(
             Payment.rent_id == rent.id
         ).scalar() or 0

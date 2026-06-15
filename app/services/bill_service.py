@@ -7,22 +7,27 @@ def get_total_bill(db):
     total = db.query(func.sum(Bill.bill_amount)).scalar()
 
     electricity = db.query(func.sum(Bill.bill_amount)).filter(
-        Bill.bill_type == "electricity"
+        Bill.bill_type == "Electricity"
     ).scalar()
 
     water = db.query(func.sum(Bill.bill_amount)).filter(
-        Bill.bill_type == "water"
+        Bill.bill_type == "Water"
     ).scalar()
 
     wifi = db.query(func.sum(Bill.bill_amount)).filter(
-        Bill.bill_type == "wifi"
+        Bill.bill_type == "Wifi"
+    ).scalar()
+
+    maintenance = db.query(func.sum(Bill.bill_amount)).filter(
+        Bill.bill_type == "Maintenance"
     ).scalar()
 
     return {
         "total": total or 0,
         "electricity": electricity or 0,
         "water": water or 0,
-        "wifi": wifi or 0
+        "wifi": wifi or 0,
+        "maintenance":maintenance or 0
     }
 
 
