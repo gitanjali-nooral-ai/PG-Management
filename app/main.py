@@ -13,6 +13,7 @@ from app.routes import rents
 from app.routes import rooms
 from app.routes import allocation
 from app.routes import notification
+from app.routes import complaints
 
 from app.services.security import (
     hash_password,
@@ -32,8 +33,8 @@ app.include_router(allocation.router)
 app.include_router(payment.router)
 app.include_router(rooms.router)
 app.include_router(rents.router)
-
-
+app.include_router(notification.router)
+app.include_router(complaints.router)
 
 
 def create_default_admin():

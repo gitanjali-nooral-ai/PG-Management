@@ -10,4 +10,4 @@ class Rent(Base):
     room_id = Column(Integer, ForeignKey("room.id"))
     month = Column(Integer)
     year = Column(Integer)
-    rent_amount = Column(Float)
+    rent_amount = Column(Float,nullable=False)

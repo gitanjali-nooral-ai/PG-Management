@@ -2,12 +2,48 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.config.database import get_db
-from app.schema.residents import ResidentUpload
-from app.services.resident_service import upload_resident
+from app.schema.residents import *
+from app.services.resident_service import *
 
 router = APIRouter(prefix="/resident", tags=["Resident"])
 
 
-@router.post("/upload")
-def resident_upload(request: ResidentUpload, db: Session = Depends(get_db)):
-    return upload_resident(db, request)
+@router.post("/add")
+def create_resident(
+    request: ResidentCreate,
+    db: Session = Depends(get_db)
+):
+    return add_resident(db, request)
+
+
+@router.put("/update/{id}")
+def update_details(
+    id: int,
+    request: ResidentUpdate,
+    db: Session = Depends(get_db)
+):
+    return update_resident(db, id, request)
+
+
+@router.delete("/delete/{id}")
+def remove_resident(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    return delete_resident(db, id)
+
+
+@router.get("/search")
+def search(
+    keyword: str,
+    db: Session = Depends(get_db)
+):
+    return search_resident(db, keyword)
+
+
+@router.get("/{id}")
+def resident_details(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    return get_resident_details(db, id)

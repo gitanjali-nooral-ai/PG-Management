@@ -8,5 +8,5 @@ class Payment(Base):
     id = Column(Integer, primary_key=True, index=True)
     resident_id = Column(Integer, ForeignKey("resident.id"))
     rent_id = Column(Integer, ForeignKey("rent.id"))
-    payment = Column(Float)
+    amount_paid = Column(Float)
     pay_date = Column(Date)
