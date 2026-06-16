@@ -16,6 +16,27 @@ def create_resident(
     return add_resident(db, request)
 
 
+@router.get("/all")
+def get_list(db: Session = Depends(get_db)):
+    return get_all(db)
+
+
+@router.get("/search")
+def search(
+    keyword: str,
+    db: Session = Depends(get_db)
+):
+    return search_resident(db, keyword)
+
+
+@router.get("/status/{status}")
+def get_status(
+    status: str,
+    db: Session = Depends(get_db)
+):
+    return get_by_status(db, status)
+
+
 @router.put("/update/{id}")
 def update_details(
     id: int,
@@ -31,14 +52,6 @@ def remove_resident(
     db: Session = Depends(get_db)
 ):
     return delete_resident(db, id)
-
-
-@router.get("/search")
-def search(
-    keyword: str,
-    db: Session = Depends(get_db)
-):
-    return search_resident(db, keyword)
 
 
 @router.get("/{id}")

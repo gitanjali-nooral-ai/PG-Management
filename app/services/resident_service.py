@@ -66,9 +66,14 @@ def delete_resident(db, resident_id):
 
 def search_resident(db, keyword):
 
-    return db.query(Resident).filter(
+    resident = db.query(Resident).filter(
         Resident.full_name.ilike(f"%{keyword}%")
     ).all()
+
+    if not resident :
+        return {"message": "resident not found"}
+
+    return resident
 
 
 def get_resident_details(db, resident_id):
@@ -81,3 +86,42 @@ def get_resident_details(db, resident_id):
         return {"message": "resident not found"}
 
     return resident
+
+def get_all(db):
+
+    residents = db.query(Resident).all()
+
+    return [
+        {
+            "id":res.id,
+            "name": res.full_name,
+            "mobile" : res.mobile_no,
+            "email": res.email,
+            "DOB" : res.DOB,
+            "address": res.permenant_address,
+            "aadhar" : res.aadhar,
+            "status" : res.status
+        }
+        for res in residents
+    ]
+
+def get_by_status(db, status):
+    residents = (
+        db.query(Resident)
+        .filter(Resident.status == status)
+        .all()
+    )
+
+    return [
+        {
+            "id": res.id,
+            "name": res.full_name,
+            "mobile": res.mobile_no,
+            "email": res.email,
+            "DOB": res.DOB,
+            "address": res.permenant_address,
+            "aadhar": res.aadhar,
+            "status": res.status
+        }
+        for res in residents
+    ]

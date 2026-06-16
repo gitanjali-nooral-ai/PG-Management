@@ -11,6 +11,6 @@ router = APIRouter(prefix="/pg", tags=["PG"])
 def pg_upload(request: PGUpload, db: Session = Depends(get_db)):
     return upload_pg(db, request)
 
-@router.get("list")
+@router.get("/list")
 def get_list(db: Session = Depends(get_db)):
     return get_pg_list(db)
