@@ -1,0 +1,72 @@
+.profile-page {
+    padding: 25px;
+}
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    color: #1e293b;
+}
+
+.page-header p {
+    color: #64748b;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    gap: 40px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.profile-details {
+    flex: 1;
+}
+
+.profile-row {
+    margin-bottom: 20px;
+}
+
+.profile-row label {
+    display: block;
+    font-weight: 600;
+    color: #475569;
+}
+
+.profile-row span {
+    color: #1e293b;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.edit-btn,
+.password-btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.password-btn {
+    background: #f59e0b;
+    color: white;
+}
