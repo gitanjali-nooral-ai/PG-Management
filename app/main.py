@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.models.base import Base
 
-Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI(title="PG Management Backend")
 
@@ -29,7 +29,9 @@ from app.routes import rooms
 from app.routes import allocation
 from app.routes import notification
 from app.routes import complaints
+from app.routes import visitor
 
+Base.metadata.create_all(bind=engine)
 
 app.include_router(auth.router)
 app.include_router(bills.router)
@@ -41,7 +43,7 @@ app.include_router(rooms.router)
 app.include_router(rents.router)
 app.include_router(notification.router)
 app.include_router(complaints.router)
-
+app.include_router(visitor.router)
 
 @app.on_event("startup")
 def startup_event():
