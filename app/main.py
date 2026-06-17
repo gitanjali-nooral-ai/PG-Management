@@ -1,7 +1,23 @@
 from fastapi import FastAPI
 from app.config.database import engine
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.models.base import Base
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="PG Management Backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        ## need to add frontend running port
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 from app.routes import auth  
 from app.routes import bills
@@ -13,11 +29,6 @@ from app.routes import rooms
 from app.routes import allocation
 from app.routes import notification
 from app.routes import complaints
-
-
-Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="PG Management Backend")
 
 
 app.include_router(auth.router)
@@ -42,3 +53,4 @@ def home():
     return {
         "message": "PG Management Backend Running"
     }
+ 

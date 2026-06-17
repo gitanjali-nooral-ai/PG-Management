@@ -30,3 +30,19 @@ def get_pg_list(db):
         }
         for pg in pgs
     ]
+
+def delete_pg(db,id):
+
+    pg = db.query(PG).filter(
+        PG.id == id
+    ).first()
+
+    if not pg:
+        return {"message": "pg not found"}
+
+    db.delete(pg)
+    db.commit()
+
+    return {
+        "message": "pg deleted successfully"
+    }

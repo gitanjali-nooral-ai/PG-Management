@@ -14,3 +14,7 @@ def pg_upload(request: PGUpload, db: Session = Depends(get_db)):
 @router.get("/list")
 def get_list(db: Session = Depends(get_db)):
     return get_pg_list(db)
+
+@router.delete("/delete/{id}")
+def pg_delete(id: int, db: Session = Depends(get_db)):
+    return delete_pg(db,id)
