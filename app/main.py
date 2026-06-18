@@ -30,6 +30,8 @@ from app.routes import allocation
 from app.routes import notification
 from app.routes import complaints
 from app.routes import visitor
+from app.routes import dashboard
+from app.routes import report
 
 Base.metadata.create_all(bind=engine)
 
@@ -44,6 +46,8 @@ app.include_router(rents.router)
 app.include_router(notification.router)
 app.include_router(complaints.router)
 app.include_router(visitor.router)
+app.include_router(dashboard.router)
+app.include_router(report.router)
 
 @app.on_event("startup")
 def startup_event():
