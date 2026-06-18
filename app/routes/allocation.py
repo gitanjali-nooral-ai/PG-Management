@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.post("/upload")
 def allocation_upload( request: AllocationUpload, db: Session = Depends(get_db)):
-    return upload_allocation(db, request)
+    return allocate_bed(db, request)
 
 
 @router.put("/vacate/{resident_id}")
