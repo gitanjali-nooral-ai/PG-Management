@@ -1,13 +1,26 @@
-from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy import Column,Integer,Numeric,ForeignKey,UniqueConstraint
 from app.models.base import Base
 
-
 class Rent(Base):
-    __tablename__ = "rent"
+    __tablename__="rent"
 
-    id = Column(Integer, primary_key=True, index=True)
-    resident_id = Column(Integer, ForeignKey("resident.id"))
-    room_id = Column(Integer, ForeignKey("room.id"))
-    month = Column(Integer)
-    year = Column(Integer)
-    rent_amount = Column(Float,nullable=False)
+    __table_args__=(
+        UniqueConstraint(
+            "resident_id",
+            "month",
+            "year",
+            name="unique_monthly_rent"
+        ),
+    )
+
+    id=Column(Integer,primary_key=True,index=True)
+
+    resident_id=Column( Integer, ForeignKey("resident.id"), nullable=False)
+    
+    room_id=Column( Integer, ForeignKey("room.id"), nullable=False )
+
+    month=Column( Integer, nullable=False )
+
+    year=Column( Integer, nullable=False)
+
+    rent_amount=Column( Numeric(10,2), nullable=False )
