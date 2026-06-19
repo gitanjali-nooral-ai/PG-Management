@@ -6,8 +6,9 @@ class PaymentUpload(BaseModel):
 
     resident_id: int = Field(gt=0)
 
-    rent_id: int = Field(gt=0)
-
-    amount_paid: float = Field( gt=0, le=1000000)
+    amount_paid: float = Field(
+        gt=0,
+        le=1000000
+    )
 
     payment_date: date

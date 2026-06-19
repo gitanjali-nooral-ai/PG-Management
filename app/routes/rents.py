@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 @router.post("/generate")
-def generate_rent( request: GenerateRentRequest, db: Session = Depends(get_db)):
+def generate( request: GenerateRentRequest, db: Session = Depends(get_db)):
     return generate_rent( db, request )
 
 @router.get("/status/{rent_id}")

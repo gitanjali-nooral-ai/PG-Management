@@ -8,51 +8,69 @@ def add_payment(db, request):
     rent = (
         db.query(Rent)
         .filter(
-            Rent.id == request.rent_id,
-            Rent.resident_id == request.resident_id
+            Rent.resident_id == request.resident_id,
+            Rent.status == "Pending"
+        )
+        .order_by(
+            Rent.year.desc(),
+            Rent.month.desc()
         )
         .first()
     )
 
-    if not rent:
-        return { "message": "Rent record not found for this resident" }
 
-    if request.amount_paid <= 0:
-        return { "message": "Payment amount must be greater than zero" }
+    if not rent:
+        return {
+            "message": "No pending rent found"
+        }
+
 
     already_paid = (
         db.query(
             func.sum(Payment.amount_paid)
         )
         .filter(
-            Payment.rent_id == request.rent_id
+            Payment.rent_id == rent.id
         )
         .scalar()
         or Decimal("0")
     )
 
-    rent_amount = Decimal( str(rent.rent_amount) )
 
-    payment_amount = Decimal( str(request.amount_paid))
+    rent_amount = Decimal(str(rent.rent_amount))
 
-    remaining_amount = ( rent_amount - already_paid)
+    payment_amount = Decimal(
+        str(request.amount_paid)
+    )
 
-    if payment_amount > remaining_amount:
+
+    pending_amount = rent_amount - already_paid
+
+
+    if payment_amount > pending_amount:
         return {
-            "message": "Payment amount exceeds pending rent",
-            "pending_amount": float(remaining_amount)
+            "message": "Payment exceeds pending amount",
+            "pending_amount": float(pending_amount)
         }
+
 
     payment = Payment(
         resident_id=request.resident_id,
-        rent_id=request.rent_id,
+        rent_id=rent.id,
         amount_paid=payment_amount,
         pay_date=request.payment_date
     )
 
 
+    db.add(payment)
+
+
+    # update rent status
+    if payment_amount == pending_amount:
+        rent.status = "Paid"
+
+
     try:
-        db.add(payment)
         db.commit()
         db.refresh(payment)
 
@@ -60,9 +78,15 @@ def add_payment(db, request):
         db.rollback()
         raise e
 
+
     return {
         "message": "Payment recorded successfully",
-        "payment_id": payment.id
+        "payment_id": payment.id,
+        "rent_id": rent.id,
+        "paid_amount": float(payment_amount),
+        "remaining": float(
+            pending_amount-payment_amount
+        )
     }
 
 

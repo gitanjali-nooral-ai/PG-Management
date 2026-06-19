@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.config.database import get_db
 from app.services.payment_service import *
+from app.schema.payments import *
 
 router = APIRouter(
     prefix="/payment",
@@ -10,7 +11,10 @@ router = APIRouter(
 )
 
 @router.post("/")
-def create_payment(request, db: Session = Depends(get_db)):
+def create_payment(
+    request: PaymentUpload,
+    db: Session = Depends(get_db)
+):
     return add_payment(db, request)
 
 @router.get("/status/{rent_id}")

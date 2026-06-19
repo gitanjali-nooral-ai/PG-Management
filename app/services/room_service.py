@@ -1,4 +1,4 @@
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from app.models.room import Room
 from app.models.pg import PG
 from app.models.allocation import Allocation
@@ -114,34 +114,33 @@ def get_room_list(db):
         for room in rooms
     ]
 
-
-
 def get_room_availability(db):
 
     rooms = db.query(Room).all()
-    result=[]
+    result = []
 
     for room in rooms:
-        occupied=db.query(
+
+        occupied = db.query(
             func.count(Allocation.id)
         ).filter(
             Allocation.room_id == room.id,
             Allocation.joining_date <= func.current_date(),
-            ( Allocation.leaving_date == None | Allocation.leaving_date >= func.current_date())
+            or_(
+                Allocation.leaving_date.is_(None),
+                Allocation.leaving_date >= func.current_date()
+            )
         ).scalar()
+
         available = room.capacity - occupied
 
         result.append({
-            "room_id":room.id,
-            "room_number":room.room_number,
-            "capacity":room.capacity,
-            "occupied":occupied,
-            "available":available,
-            "status": "Available"
-                if available > 0
-                else
-                "Full"
-
+            "room_id": room.id,
+            "room_number": room.room_number,
+            "capacity": room.capacity,
+            "occupied": occupied,
+            "available": available,
+            "status": "Available" if available > 0 else "Full"
         })
 
     return result
