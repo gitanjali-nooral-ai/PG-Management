@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
 from app.models.admin import Admin
-from app.config.security import encrypt ## used another security class from config to make it secure 
+from app.config.security import encrypt 
 
 
 def set_smtp_config(db, request):

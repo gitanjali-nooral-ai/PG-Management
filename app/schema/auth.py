@@ -27,7 +27,7 @@ class ResetPasswordRequest(BaseModel):
 class DeleteAdminRequest(BaseModel):
     username: str
     password : str
-    confirm: str   # must be "DELETE"
+    confirm: str   
 
 class SMTPConfigRequest(BaseModel):
     sender_email: str
