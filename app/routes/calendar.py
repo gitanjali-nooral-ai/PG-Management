@@ -11,7 +11,8 @@ from app.services.calendar_service import (
     create_memo,
     get_memos_by_date,
     update_memo,
-    delete_memo
+    delete_memo,
+    delete_all
 )
 
 router = APIRouter(
@@ -57,4 +58,14 @@ def delete_memo_api(
     return delete_memo(
         db,
         memo_id
+    )
+
+@router.delete("/memo/date/{memo_date}")
+def delete_all_memo(
+    memo_date: date,
+    db: Session = Depends(get_db)
+):
+    return delete_all(
+        db,
+        memo_date
     )

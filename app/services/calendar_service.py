@@ -93,3 +93,19 @@ def delete_memo(db, memo_id):
     return {
         "message": "Memo deleted successfully"
     }
+
+def delete_all(db, memo_date):
+
+    deleted_count = (
+        db.query(CalendarMemo)
+        .filter(
+            CalendarMemo.memo_date == memo_date
+        )
+        .delete(synchronize_session=False)
+    )
+
+    db.commit()
+
+    return {
+        "message": f"{deleted_count} memo(s) deleted"
+    }
