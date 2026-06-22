@@ -32,6 +32,7 @@ from app.routes import complaints
 from app.routes import visitor
 from app.routes import dashboard
 from app.routes import report
+from app.routes import calendar
 
 Base.metadata.create_all(bind=engine)
 
@@ -48,6 +49,7 @@ app.include_router(complaints.router)
 app.include_router(visitor.router)
 app.include_router(dashboard.router)
 app.include_router(report.router)
+app.include_router(calendar.router)
 
 @app.on_event("startup")
 def startup_event():
