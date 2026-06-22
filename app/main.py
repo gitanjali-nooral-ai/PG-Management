@@ -33,6 +33,7 @@ from app.routes import visitor
 from app.routes import dashboard
 from app.routes import report
 from app.routes import calendar
+from app.routes import resident_movement
 
 Base.metadata.create_all(bind=engine)
 
@@ -50,6 +51,7 @@ app.include_router(visitor.router)
 app.include_router(dashboard.router)
 app.include_router(report.router)
 app.include_router(calendar.router)
+app.include_router(resident_movement.router)
 
 @app.on_event("startup")
 def startup_event():
