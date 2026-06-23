@@ -119,3 +119,95 @@ def resident_entry(
 
 
     return movement
+
+def movement_status(db):
+
+    residents = (
+        db.query(Resident)
+        .all()
+    )
+
+
+    inside = []
+    outside = []
+
+
+    for resident in residents:
+
+        data = {
+            "id":resident.id,
+            "name":resident.name,
+            "status":resident.status
+        }
+
+
+        if resident.status == "INSIDE":
+            inside.append(data)
+
+        else:
+            outside.append(data)
+
+
+
+    return {
+
+        "inside_count":len(inside),
+
+        "outside_count":len(outside),
+
+        "inside":inside,
+
+        "outside":outside
+
+    }
+
+
+def movement_history(
+        db,
+        resident_id
+):
+
+    movements = (
+
+        db.query(
+            ResidentMovement
+        )
+
+        .filter(
+            ResidentMovement.resident_id
+            ==
+            resident_id
+        )
+
+        .order_by(
+            ResidentMovement.id.desc()
+        )
+
+        .all()
+
+    )
+
+
+    return movements
+
+def today_movement(db):
+
+    today = datetime.now().date()
+
+
+    movements=(
+
+        db.query(
+            ResidentMovement
+        )
+
+        .filter(
+            ResidentMovement.exit_time >= today
+        )
+
+        .all()
+
+    )
+
+
+    return movements

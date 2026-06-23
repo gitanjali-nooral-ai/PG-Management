@@ -220,3 +220,404 @@ def generate_report_pdf(db, year):
             f"attachment; filename=PG_Report_{year}.pdf"
         }
     )
+
+def get_monthly_report(db, year, month):
+
+    bills = ( db.query(Bill) .all())
+
+    print("ALL BILLS")
+    for bill in bills:
+        print(
+            bill.id,
+            bill.bill_date,
+            bill.bill_type,
+            bill.bill_amount
+        )
+
+    total_collection = (
+        db.query(
+            func.sum(Bill.bill_amount)
+        )
+        .filter(
+            extract(
+                "year",
+                Bill.bill_date
+            ) == year,
+            extract(
+                "month",
+                Bill.bill_date
+            ) == month
+        )
+        .scalar()
+        or 0
+    )
+
+    print(
+        "TOTAL COLLECTION:",
+        total_collection
+    )
+
+    def bill_type_amount(bill_type):
+
+        amount = (
+            db.query(
+                func.sum(Bill.bill_amount)
+            )
+            .filter(
+                Bill.bill_type == bill_type,
+                extract(
+                    "year",
+                    Bill.bill_date
+                ) == year,
+                extract(
+                    "month",
+                    Bill.bill_date
+                ) == month
+            ).scalar() or 0
+        )
+
+        return float(amount)
+
+    residents = ( db.query(func.count(Resident.id)).scalar() or 0)
+
+    rooms = ( db.query(func.count(Room.id)).scalar() or 0)
+
+    occupied = (
+        db.query(func.count(Allocation.id))
+        .filter( Allocation.leaving_date == None)
+        .scalar() or 0 )
+
+
+    complaints_data = ( db.query( Complaint).all())
+
+    for complaint in complaints_data:
+
+        print(
+
+            complaint.id,
+
+            complaint.created_at
+
+        )
+
+
+    complaints = (
+
+        db.query(
+            func.count(Complaint.id)
+        )
+
+        .filter(
+
+            extract(
+                "year",
+                Complaint.created_at
+            )
+            ==
+            year,
+
+
+            extract(
+                "month",
+                Complaint.created_at
+            )
+            ==
+            month
+
+        )
+
+        .scalar()
+
+        or 0
+
+    )
+
+    print("COMPLAINT COUNT:", complaints)
+
+    return {
+        "year": year,
+        "month": month,
+        "summary":{
+            "residents": residents,
+            "rooms": rooms,
+            "occupied_beds": occupied,
+            "complaints": complaints
+        },
+        "collection":{
+            "total": float(total_collection),
+            "electricity": bill_type_amount("Electricity"),
+            "water": bill_type_amount("Water"),
+            "wifi": bill_type_amount("Wifi"),
+            "maintenance":bill_type_amount("Maintenance")
+        }
+    }
+
+def generate_monthly_report_pdf(db, year, month):
+
+    report = get_monthly_report(
+        db,
+        year,
+        month
+    )
+
+
+    buffer = BytesIO()
+
+    pdf = canvas.Canvas(
+        buffer,
+        pagesize=letter
+    )
+
+
+    width, height = letter
+
+
+    y = height - 50
+
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        18
+    )
+
+    pdf.drawString(
+        50,
+        y,
+        f"PG Monthly Report - {month}/{year}"
+    )
+
+
+    y -= 40
+
+
+
+    pdf.setFont(
+        "Helvetica",
+        12
+    )
+
+
+
+    # -------------------------
+    # SUMMARY
+    # -------------------------
+
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        14
+    )
+
+
+    pdf.drawString(
+        50,
+        y,
+        "Summary"
+    )
+
+
+    y -= 25
+
+
+    pdf.setFont(
+        "Helvetica",
+        12
+    )
+
+
+    summary = report["summary"]
+
+
+
+    summary_data = [
+
+        (
+            "Total Residents",
+            summary["residents"]
+        ),
+
+        (
+            "Total Rooms",
+            summary["rooms"]
+        ),
+
+        (
+            "Occupied Beds",
+            summary["occupied_beds"]
+        ),
+
+        (
+            "Total Complaints",
+            summary["complaints"]
+        )
+
+    ]
+
+
+
+    for label,value in summary_data:
+
+
+        pdf.drawString(
+
+            70,
+
+            y,
+
+            f"{label}: {value}"
+
+        )
+
+
+        y -= 20
+
+
+
+
+    y -= 20
+
+
+
+    # -------------------------
+    # COLLECTION
+    # -------------------------
+
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        14
+    )
+
+
+    pdf.drawString(
+
+        50,
+
+        y,
+
+        "Collection Details"
+
+    )
+
+
+    y -= 25
+
+
+
+    pdf.setFont(
+        "Helvetica",
+        12
+    )
+
+
+
+    collection = report["collection"]
+
+
+
+    collection_data = [
+
+
+        (
+            "Total Collection",
+            collection["total"]
+        ),
+
+
+        (
+            "Electricity",
+            collection["electricity"]
+        ),
+
+
+        (
+            "Water",
+            collection["water"]
+        ),
+
+
+        (
+            "Wifi",
+            collection["wifi"]
+        ),
+
+
+        (
+            "Maintenance",
+            collection["maintenance"]
+        )
+
+
+    ]
+
+
+
+    for label,value in collection_data:
+
+
+        pdf.drawString(
+
+            70,
+
+            y,
+
+            f"{label}: Rs {value}"
+
+        )
+
+
+        y -= 20
+
+
+
+
+    y -= 30
+
+
+
+    # -------------------------
+    # FOOTER
+    # -------------------------
+
+
+    pdf.setFont(
+        "Helvetica-Oblique",
+        10
+    )
+
+
+    pdf.drawString(
+
+        50,
+
+        40,
+
+        "Generated by PG Management System"
+
+    )
+
+
+
+    pdf.save()
+
+
+
+    buffer.seek(0)
+
+
+
+    return StreamingResponse(
+
+        buffer,
+
+        media_type="application/pdf",
+
+        headers={
+
+            "Content-Disposition":
+
+            f"attachment; filename=PG_Monthly_Report_{month}_{year}.pdf"
+
+        }
+
+    )

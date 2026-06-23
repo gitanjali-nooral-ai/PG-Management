@@ -8,10 +8,7 @@ from app.schema.resident_movement import (
     ResidentMovementResponse
 )
 
-from app.services.resident_movement_service import (
-    resident_exit,
-    resident_entry
-)
+from app.services.resident_movement_service import *
 
 from app.config.database import get_db
 
@@ -52,3 +49,32 @@ def entry_resident(
         db,
         data.resident_id
     )
+
+@router.get("/status")
+def status(
+    db:Session=Depends(get_db)
+):
+
+    return movement_status(db)
+
+
+
+@router.get("/history/{resident_id}")
+def history(
+    resident_id:int,
+    db:Session=Depends(get_db)
+):
+
+    return movement_history(
+        db,
+        resident_id
+    )
+
+
+
+@router.get("/today")
+def today(
+    db:Session=Depends(get_db)
+):
+
+    return today_movement(db)

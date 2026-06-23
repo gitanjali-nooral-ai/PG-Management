@@ -120,3 +120,32 @@ def upload_bill(db, request):
         "message": "Bill uploaded successfully",
         "bill_id": bill.id
     }
+
+def get_all_bills(db):
+
+    bills = (
+        db.query(Bill)
+        .order_by(
+            Bill.id.desc()
+        )
+        .all()
+    )
+
+
+    return [
+
+        {
+            "id": bill.id,
+            "pg_id": bill.pg_id,
+            "bill_type": bill.bill_type,
+            "bill_amount": float(
+                bill.bill_amount
+            ),
+            "bill_date": str(
+                bill.bill_date
+            )
+        }
+
+        for bill in bills
+
+    ]

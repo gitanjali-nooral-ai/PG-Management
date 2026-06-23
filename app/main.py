@@ -11,7 +11,7 @@ app = FastAPI(title="PG Management Backend")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        ## need to add frontend running port
+        # frontend runnning port 
     ],
     allow_credentials=True,
     allow_methods=["*"],
